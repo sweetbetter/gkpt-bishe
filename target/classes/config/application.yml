@@ -2,6 +2,8 @@ server:
   port: 8081
 
 spring:
+  profiles:
+    active: dev
   datasource:
    # type:  com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -24,6 +26,10 @@ spring:
       connection-timeout: 30000
       connection-test-query: SELECT 1
 
+  #返回json的全局时间格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 jwt:
   # Jwt存储的请求头
   tokenHeader: Authorization
@@ -42,9 +48,10 @@ mybatis-plus:
   configuration:
     # 自动驼峰命名
     map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #mybatis 日志
 # Mybatis SQL 打印 (方法接口所在的包)
 logging:
+
   level:
     com.dong.mapper: debug
-
-
+  config: classpath:config/logback-spring.xml
