@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dong.server.controller.course.vm.TeacherQueryVM;
 import com.dong.server.pojo.ResponseBean;
 import com.dong.server.pojo.course.Teacher;
+import com.dong.server.service.IFileService;
 import com.dong.server.service.course.ITeacherService;
 import com.dong.server.util.R;
 import io.swagger.annotations.Api;
@@ -28,6 +29,7 @@ public class TeacherController {
     @Autowired
     private ITeacherService teacherService;
 
+
     @ApiOperation("所有讲师列表")
     @GetMapping("list")
     public R listAll(){
@@ -37,7 +39,21 @@ public class TeacherController {
     @ApiOperation(value = "根据ID删除讲师")
     @DeleteMapping("remove/{id}")
     public R removeById(@ApiParam("讲师id") @PathVariable String id){
+        boolean result2= teacherService.removeAvatar(id);
         boolean result= teacherService.removeById(id);//失败返回0
+        if(result){
+            return R.ok().message("删除成功");
+        }else{
+            return R.error().message("讲师不存在");
+        }
+    }
+
+//    批量删除
+    @ApiOperation(value = "根据ID删除讲师")
+    @DeleteMapping("remove-batch")
+    public R removeBatch(@ApiParam(value = "讲师id列表",required = true)
+                             @RequestBody List<String> idList){
+        boolean result= teacherService.removeByIds(idList);
         if(result){
             return R.ok().message("删除成功");
         }else{

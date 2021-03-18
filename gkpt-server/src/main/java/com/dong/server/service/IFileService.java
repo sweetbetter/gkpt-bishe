@@ -12,4 +12,7 @@ import java.io.InputStream;
 public interface IFileService {
     //流式上传
     String upload(InputStream inputStream, String module, String originalFilename);
+
+    //删除文件
+    void removeFile(String url);
 }

@@ -58,6 +58,6 @@ logging:
 aliyun:
   oss:
     endpoint: oss-cn-beijing.aliyuncs.com
-    keyid: LTAI4G4PrT638roNDeF4GSMt1
+    keyid: LTAI4G4PrT638roNDeF4GSMt
     keysecret: vy0nVGjDzxUSN05kLdwDYe5jQhrYMs
     bucketname: gkpt-file

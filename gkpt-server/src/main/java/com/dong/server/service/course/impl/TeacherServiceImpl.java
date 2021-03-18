@@ -8,7 +8,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dong.server.controller.course.vm.TeacherQueryVM;
 import com.dong.server.mapper.course.TeacherMapper;
 import com.dong.server.pojo.course.Teacher;
+import com.dong.server.service.IFileService;
 import com.dong.server.service.course.ITeacherService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -22,6 +24,9 @@ import org.springframework.util.StringUtils;
  */
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements ITeacherService {
+
+    @Autowired
+    IFileService fileService;
 
     @Override
     public IPage<Teacher> selectTeacherWithPage(TeacherQueryVM teacherQueryVM, Page<Teacher> pageParam) {
@@ -39,7 +44,6 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         String begin = teacherQueryVM.getJoinDateBegin();
         String end = teacherQueryVM.getJoinDateEnd();
         if (!StringUtils.isEmpty(name)) {
-            //左%会使索引失效
             queryWrapper.likeRight("name", name);
         }
 
@@ -57,5 +61,18 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
 
         return baseMapper.selectPage(pageParam,queryWrapper);
+    }
+
+    //通过id删除讲师头像
+    @Override
+    public Boolean removeAvatar(String id) {
+        Teacher teacher=baseMapper.selectById(id);
+        if(teacher!=null){
+            String avatarUrl=teacher.getAvatar();
+            if(!StringUtils.isEmpty(avatarUrl)){
+                fileService.removeFile(avatarUrl);
+            }
+        }
+        return true;
     }
 }
