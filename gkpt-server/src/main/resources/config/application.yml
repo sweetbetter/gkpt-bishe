@@ -51,7 +51,13 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #mybatis 日志
 # Mybatis SQL 打印 (方法接口所在的包)
 logging:
-
   level:
     com.dong.mapper: debug
   config: classpath:config/logback-spring.xml
+
+aliyun:
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    keyid: LTAI4G4PrT638roNDeF4GSMt1
+    keysecret: vy0nVGjDzxUSN05kLdwDYe5jQhrYMs
+    bucketname: gkpt-file

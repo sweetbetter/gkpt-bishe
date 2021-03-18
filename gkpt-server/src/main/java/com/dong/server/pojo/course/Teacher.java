@@ -35,14 +35,14 @@ public class Teacher implements Serializable {
     @ApiModelProperty(value = "讲师姓名")
     private String name;
 
+    @ApiModelProperty(value = "类型 1 行测讲师 2 申论讲师 3 其他")
+    private int type;
+
     @ApiModelProperty(value = "讲师简介")
     private String intro;
 
     @ApiModelProperty(value = "讲师资历,一句话说明讲师")
     private String career;
-
-    @ApiModelProperty(value = "头衔 1高级讲师 2首席讲师")
-    private Integer level;
 
     @ApiModelProperty(value = "讲师头像")
     private String avatar;

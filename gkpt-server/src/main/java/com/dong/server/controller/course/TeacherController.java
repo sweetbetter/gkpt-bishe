@@ -23,6 +23,7 @@ import java.util.List;
 @Api("讲师管理")
 @RestController
 @RequestMapping("/course/teacher")
+@CrossOrigin
 public class TeacherController {
     @Autowired
     private ITeacherService teacherService;
@@ -31,8 +32,6 @@ public class TeacherController {
     @GetMapping("list")
     public R listAll(){
         return R.ok().data("list",teacherService.list()).message("查询成功！");
-
-
     }
 
     @ApiOperation(value = "根据ID删除讲师")

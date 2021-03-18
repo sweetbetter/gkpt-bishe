@@ -8,7 +8,7 @@
         <result column="name" property="name" />
         <result column="intro" property="intro" />
         <result column="career" property="career" />
-        <result column="level" property="level" />
+        <result column="type" property="type" />
         <result column="avatar" property="avatar" />
         <result column="sort" property="sort" />
         <result column="join_date" property="joinDate" />
@@ -19,7 +19,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, intro, career, level, avatar, sort, join_date, is_deleted, gmt_create, gmt_modified
+        id, name, intro, career, type, avatar, sort, join_date, is_deleted, gmt_create, gmt_modified
     </sql>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.dong.server.basic.handler;
 
+import com.dong.server.basic.exception.BasicException;
 import com.dong.server.util.ExceptionUtils;
 import com.dong.server.util.R;
 import com.dong.server.util.ResultCodeEnum;
@@ -29,6 +30,12 @@ public class GlobalExceptionHandler {
         return R.error();
     }
 
+    @ExceptionHandler(BasicException.class)
+    @ResponseBody
+    public R error(BasicException e){
+        log.error(ExceptionUtils.getMessage(e));
+        return R.error().message(e.getMessage()).code(e.getCode());
+    }
     //sql异常处理
     @ExceptionHandler(BadSqlGrammarException.class)
     @ResponseBody
