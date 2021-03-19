@@ -32,7 +32,7 @@ public class CourseInfoForm implements Serializable {
     private Long subjectParentId;
 
     @ApiModelProperty(value = "课程标题")
-    private Long title;
+    private String title;
 
     @ApiModelProperty(value = "课程销售价格，设置为0则可免费观看")
     private BigDecimal price;
