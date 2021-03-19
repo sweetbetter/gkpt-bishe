@@ -3,10 +3,8 @@ package com.dong.server.controller.course;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.dong.server.controller.course.vm.TeacherQueryVM;
-import com.dong.server.pojo.ResponseBean;
+import com.dong.server.pojo.course.vm.TeacherQueryVM;
 import com.dong.server.pojo.course.Teacher;
-import com.dong.server.service.IFileService;
 import com.dong.server.service.course.ITeacherService;
 import com.dong.server.util.R;
 import io.swagger.annotations.Api;

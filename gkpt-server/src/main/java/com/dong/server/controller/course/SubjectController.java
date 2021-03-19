@@ -2,7 +2,7 @@ package com.dong.server.controller.course;
 
 
 import com.dong.server.basic.exception.BasicException;
-import com.dong.server.pojo.course.Subject;
+import com.dong.server.pojo.course.vm.SubjectVM;
 import com.dong.server.service.course.ISubjectService;
 import com.dong.server.util.ExceptionUtils;
 import com.dong.server.util.R;
@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
@@ -47,4 +47,12 @@ public class SubjectController {
             throw new BasicException(ResultCodeEnum.EXCEL_DATA_IMPORT_ERROR);
         }
     }
+
+    @ApiOperation("获取数据列表")
+    @GetMapping("subjectList")
+    public R subjectList(){
+        List<SubjectVM> subjectList=subjectService.subjectList();
+        return R.ok().data("lists",subjectList);
+    }
+
 }

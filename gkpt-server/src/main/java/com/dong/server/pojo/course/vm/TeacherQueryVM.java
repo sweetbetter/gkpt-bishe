@@ -1,6 +1,8 @@
-package com.dong.server.controller.course.vm;
+package com.dong.server.pojo.course.vm;
 
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * @ClassName: TeacherQueryVM
@@ -9,7 +11,7 @@ import lombok.Data;
  * @Date: 2021/3/9 21:35
  */
 @Data
-public class TeacherQueryVM {
+public class TeacherQueryVM  implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
     private Integer level;

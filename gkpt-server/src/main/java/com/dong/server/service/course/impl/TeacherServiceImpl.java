@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import com.dong.server.controller.course.vm.TeacherQueryVM;
+import com.dong.server.pojo.course.vm.TeacherQueryVM;
 import com.dong.server.mapper.course.TeacherMapper;
 import com.dong.server.pojo.course.Teacher;
 import com.dong.server.service.IFileService;

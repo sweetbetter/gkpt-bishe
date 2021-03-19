@@ -44,7 +44,7 @@ mybatis-plus:
   #mapper文件存放地点
   mapper-locations: classpath*:/mapper/*Mapper.xml
   #配置mybatis数据返回类型别名
-  type-aliases-package: com.dong.server.pojo
+#  type-aliases-package: com.dong.server.pojo
   configuration:
     # 自动驼峰命名
     map-underscore-to-camel-case: false

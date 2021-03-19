@@ -1,20 +1,19 @@
-package com.dong.course.controller;
+package com.dong.server.controller.course;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 课程科目 前端控制器
+ * 课程视频 前端控制器
  * </p>
  *
  * @author caojingdong
- * @since 2021-03-18
+ * @since 2021-03-19
  */
 @RestController
-@RequestMapping("/course/subject")
-public class SubjectController {
+@RequestMapping("/course/video")
+public class VideoController {
 
 }

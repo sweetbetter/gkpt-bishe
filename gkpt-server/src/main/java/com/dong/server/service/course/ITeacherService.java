@@ -3,7 +3,7 @@ package com.dong.server.service.course;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dong.server.controller.course.vm.TeacherQueryVM;
+import com.dong.server.pojo.course.vm.TeacherQueryVM;
 import com.dong.server.pojo.course.Teacher;
 
 

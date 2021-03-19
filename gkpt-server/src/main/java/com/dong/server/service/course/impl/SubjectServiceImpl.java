@@ -8,11 +8,13 @@ import com.dong.server.listener.ExcelSubjectDataListener;
 import com.dong.server.mapper.course.SubjectMapper;
 import com.dong.server.pojo.course.Subject;
 import com.dong.server.pojo.excel.SubJectData;
+import com.dong.server.pojo.course.vm.SubjectVM;
 import com.dong.server.service.course.ISubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
@@ -27,10 +29,16 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> impl
 
     @Autowired
     private SubjectMapper subjectMapper;
+
     @Override
     public void subjectImport(InputStream inputStream) {
         EasyExcel.read(inputStream, SubJectData.class, new ExcelSubjectDataListener(subjectMapper))
                 .excelType(ExcelTypeEnum.XLSX)
                 .sheet().doRead();
+    }
+
+    @Override
+    public List<SubjectVM> subjectList() {
+        return baseMapper.selectSubjectListByParentId(0L);
     }
 }

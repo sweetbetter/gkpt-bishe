@@ -17,4 +17,19 @@
         id, title, parent_id, sort, gmt_create, gmt_modified
     </sql>
 
+    <resultMap id="subjectList" type="com.dong.server.pojo.course.vm.SubjectVM">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="sort" column="sort" />
+        <collection property="children"
+                    ofType="com.dong.server.pojo.course.vm.SubjectVM"
+                    select="selectSubjectListByParentId"
+                    column="id"/>
+    </resultMap>
+    <select id="selectSubjectListByParentId" resultMap="subjectList">
+        select id, title, sort  from c_subject where parent_id = #{parentId}
+    </select>
+
+
+
 </mapper>
