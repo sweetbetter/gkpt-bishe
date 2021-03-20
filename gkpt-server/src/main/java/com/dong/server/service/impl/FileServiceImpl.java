@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -70,7 +71,10 @@ public class FileServiceImpl implements IFileService {
         OSS ossClient = new OSSClientBuilder().build(endpoint, keyid, keysecret);
         //https://gkpt-file.oss-cn-beijing.aliyuncs.com/avatar/2021/adf10064-8b0c-41d3-bb2c-28c76b28f7e0.jpg
         String host = "https://" + bucketname + "." + endpoint + "/";
-        String objectName = url.substring(host.length());
+        String objectName=null;
+        if(StringUtils.hasText(url)){
+             objectName = url.substring(host.length());
+        }else return;
         log.info(host+"1name"+objectName);
         ossClient.deleteObject(bucketname,objectName);
         ossClient.shutdown();

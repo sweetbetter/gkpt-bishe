@@ -65,7 +65,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
     //通过id删除讲师头像
     @Override
-    public Boolean removeAvatar(String id) {
+    public Boolean removeAvatar(Long id) {
         Teacher teacher=baseMapper.selectById(id);
         if(teacher!=null){
             String avatarUrl=teacher.getAvatar();

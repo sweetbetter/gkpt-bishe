@@ -2,6 +2,7 @@ package com.dong.server.mapper.course;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dong.server.pojo.course.Teacher;
+import org.springframework.stereotype.Repository;
 
 
 /**
@@ -12,6 +13,7 @@ import com.dong.server.pojo.course.Teacher;
  * @author caojingdong
  * @since 2021-03-09
  */
+@Repository
 public interface TeacherMapper extends BaseMapper<Teacher> {
 
 }

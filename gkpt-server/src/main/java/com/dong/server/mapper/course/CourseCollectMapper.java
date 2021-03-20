@@ -3,6 +3,7 @@ package com.dong.server.mapper.course;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dong.server.pojo.course.CourseCollect;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -12,6 +13,7 @@ import com.dong.server.pojo.course.CourseCollect;
  * @author caojingdong
  * @since 2021-03-19
  */
+@Repository
 public interface CourseCollectMapper extends BaseMapper<CourseCollect> {
 
 }

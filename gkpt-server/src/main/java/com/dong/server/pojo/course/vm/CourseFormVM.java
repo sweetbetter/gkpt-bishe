@@ -1,5 +1,7 @@
 package com.dong.server.pojo.course.vm;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +10,7 @@ import java.io.Serializable;
  * @Description: 多表联查后封装对象(即传输到前端的对象)
  * @Date: 2021/3/19 20:17
  */
+@Data
 public class CourseFormVM implements Serializable {
 
     private static final long serialVersionUID = 1L;

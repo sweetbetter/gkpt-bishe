@@ -19,7 +19,45 @@
         <result column="gmt_create" property="gmtCreate" />
         <result column="gmt_modified" property="gmtModified" />
     </resultMap>
+    <select id="selectPageByQueryVM" resultType="com.dong.server.pojo.course.vm.CourseFormVM">
+    SELECT
+      c.id,
+      c.title,
+      c.lesson_num AS lessonNum,
+      CONVERT(c.price, DECIMAL(8,2)) AS price,
+      c.cover,
+      c.buy_count AS buyCount,
+      c.view_count AS viewCount,
+      c.status,
+      c.gmt_create AS gmtCreate,
+      t.name AS teacherName,
+      s1.title AS subjectParentTitle,
+      s2.title AS subjectChildrenTitle
+    FROM c_course c
+    LEFT JOIN c_teacher t ON c.teacher_id=t.id
+    LEFT JOIN c_subject s1 ON c.subject_parent_id=s1.id
+    LEFT JOIN c_subject s2 ON c.subject_id=s2.id
+    ${ew.customSqlSegment}
+    </select>
 
+<!--    查询发布课程信息-->
+    <select id="getCoursePulishVMById" resultType="com.dong.server.pojo.course.vm.CoursePulishFormVM">
+    SELECT
+        c.id,
+        c.title,
+        c.cover,
+        c.lesson_num AS lessonNum,
+        CONVERT(c.price, DECIMAL(8,2)) AS price,
+        t.name AS teacherName,
+        s1.title AS subjectParentTitle,
+        s2.title AS subjectChildrenTitle
+    FROM c_course c
+    LEFT JOIN c_teacher t ON c.teacher_id=t.id
+    LEFT JOIN c_subject s1 ON c.subject_parent_id=s1.id
+    LEFT JOIN c_subject s2 ON c.subject_id=s2.id
+    WHERE
+     c.id=#{id}
+    </select>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, teacher_id, subject_id, subject_parent_id, title, price, lesson_num, cover, buy_count, view_count, version, status, gmt_create, gmt_modified

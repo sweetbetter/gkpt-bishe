@@ -52,7 +52,7 @@ public class SubjectController {
     @GetMapping("subjectList")
     public R subjectList(){
         List<SubjectVM> subjectList=subjectService.subjectList();
-        return R.ok().data("lists",subjectList);
+        return R.ok().data("list",subjectList);
     }
 
 }

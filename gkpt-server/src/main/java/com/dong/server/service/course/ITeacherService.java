@@ -18,5 +18,5 @@ import com.dong.server.pojo.course.Teacher;
 public interface ITeacherService extends IService<Teacher> {
 
     IPage<Teacher> selectTeacherWithPage(TeacherQueryVM teacherQueryVM, Page<Teacher> pageParam);
-    Boolean removeAvatar(String id);
+    Boolean removeAvatar(Long id);
 }

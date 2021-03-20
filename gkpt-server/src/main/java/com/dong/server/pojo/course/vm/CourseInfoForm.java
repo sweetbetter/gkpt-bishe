@@ -3,7 +3,7 @@ package com.dong.server.pojo.course.vm;
 /**
  * @ClassName: CourseInfoForm
  * @Author: caojingdong
- * @Description: 前端课程信息表单对应的对象
+ * @Description: 前端课程信息表单对应的对象，添加课程信息对应表单
  * @Date: 2021/3/19 11:20
  */
 

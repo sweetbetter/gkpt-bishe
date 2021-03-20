@@ -36,7 +36,7 @@ public class TeacherController {
 
     @ApiOperation(value = "根据ID删除讲师")
     @DeleteMapping("remove/{id}")
-    public R removeById(@ApiParam("讲师id") @PathVariable String id){
+    public R removeById(@ApiParam("讲师id") @PathVariable Long id){
         boolean result2= teacherService.removeAvatar(id);
         boolean result= teacherService.removeById(id);//失败返回0
         if(result){

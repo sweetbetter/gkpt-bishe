@@ -7,15 +7,16 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dong.server.mapper.course.CourseDescriptionMapper;
-import com.dong.server.mapper.course.CourseMapper;
-import com.dong.server.pojo.course.Course;
-import com.dong.server.pojo.course.CourseDescription;
+import com.dong.server.mapper.course.*;
+import com.dong.server.pojo.course.*;
 import com.dong.server.pojo.course.vm.CourseFormVM;
 import com.dong.server.pojo.course.vm.CourseInfoForm;
+import com.dong.server.pojo.course.vm.CoursePulishFormVM;
 import com.dong.server.pojo.course.vm.CourseQueryVM;
+import com.dong.server.service.IFileService;
 import com.dong.server.service.course.ICourseService;
 
+import com.dong.server.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Autowired
     private CourseDescriptionMapper courseDescriptionMapper;
+    @Autowired
+    private IFileService fileService;
+    @Autowired
+    private CommentMapper commentMapper;
+    @Autowired
+    private CourseCollectMapper courseCollectMapper;
+    @Autowired
+    private ChapterMapper chapterMapper;
+    @Autowired
+    private VideoMapper videoMapper;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -54,7 +65,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public CourseInfoForm getCourseById(String id) {
+    public CourseInfoForm getCourseById(Long id) {
         Course course=baseMapper.selectById(id);
         if(course==null) return null;
         CourseDescription courseDescription=courseDescriptionMapper.selectById(id);
@@ -100,8 +111,68 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         Page<CourseFormVM> courseFormVMPage = new Page<>(page, limit);
 
-        List<CourseFormVM> result=baseMapper.selectPageByQueryVM();
+        List<CourseFormVM> result=baseMapper.selectPageByQueryVM(courseFormVMPage,courseQueryWrapper);
+        //记得要设置 mybatispls回去查询所有行
+        return courseFormVMPage.setRecords(result);
+    }
 
-        return null;
+    //删除封面图片
+    @Override
+    public boolean removeCoverById(Long id) {
+        Course course=baseMapper.selectById(id);
+        if(course != null){
+            String cover=course.getCover();
+            if(!StringUtils.hasText(cover)){
+               fileService.removeFile(cover);
+            }
+        }
+        return true;
+    }
+
+    //ps：分布式、高并发项目一般不设立外键依赖  外键和级联(更新风险)影响插入熟读
+    // 所以要在业务层解决，要先删除子表数据 再删父表数据
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean removeCourseById(Long id) {
+        //删除VIDEO
+        QueryWrapper<Video> videoQueryWrapper = new QueryWrapper<>();
+        videoQueryWrapper.eq("course_id",id);
+        videoMapper.delete(videoQueryWrapper);
+
+        //删除章节
+        QueryWrapper<Chapter>  chapterQueryWrapper = new QueryWrapper<>();
+        chapterQueryWrapper.eq("course_id",id);
+        chapterMapper.delete(chapterQueryWrapper);
+
+        //删除评论
+        QueryWrapper<Comment>  commentQueryWrapper = new QueryWrapper<>();
+        commentQueryWrapper.eq("course_id",id);
+        commentMapper.delete(commentQueryWrapper);
+
+        //删除收藏
+        QueryWrapper<CourseCollect>  collectQueryWrapper= new QueryWrapper<>();
+        collectQueryWrapper.eq("course_id",id);
+        courseCollectMapper.delete(collectQueryWrapper);
+
+        //删除详情
+        courseDescriptionMapper.deleteById(id);
+
+        //删除Course
+//       int i= baseMapper.deleteById(id);
+
+        return    this.removeById(id);
+    }
+
+    @Override
+    public CoursePulishFormVM getCoursePulishVMById(Long id) {
+        return baseMapper.getCoursePulishVMById(id);
+    }
+
+    @Override
+    public boolean publishCourseById(Long id) {
+        Course course=new Course();
+        course.setId(id);
+        course.setStatus(Course.COURSE_PUBLISHED);
+        return this.updateById(course);
     }
 }
